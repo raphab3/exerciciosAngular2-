@@ -1,0 +1,86 @@
+<div>
+
+  <div class="card">
+    <div class="card-header">
+      <h3 style="float: left; position: relative;">Cursos</h3>
+      {{formCurso.value | json}}
+      {{formCurso.valid}}
+
+      <div>
+        <a class="btn btn-outline-warning" style="float: right; position: relative;" data-toggle="collapse" href="#atualizar" role="button"
+          aria-expanded="false" aria-controls="collapseExample">
+          Atualizar
+        </a>
+
+        <a class="btn btn-primary" style="float: right; position: initial;" data-toggle="collapse" href="#collapseExample" role="button"
+          aria-expanded="false" aria-controls="collapseExample">
+          Adicionar Novo
+        </a>
+      </div>
+
+    </div>
+
+   
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+
+        <form #formCurso="ngForm" novalidate>
+          <div class="form-group">
+            <label for="nome">Curso: </label>
+            <input #nome name="nome" required type="text" class="form-control" id="nome" aria-describedby="nome"
+                   placeholder="Digite um curso" ngModel>
+          </div>
+
+          <button [disabled]="!formCurso.valid" type="button" class="btn btn-primary" data-toggle="collapse" href="#collapseExample" (click)="adicionar(nome.value);">Adicionar</button>
+        </form>
+
+      </div>
+    </div>
+
+    <div class="card-body">
+
+      <table class="table" *ngIf="cursos">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Cursos</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cursos">
+            <td>{{item.id}}</td>
+            <td #novoNome>{{item.nome}}</td>
+            <td>
+              <button class="btn btn-outline-danger btn-sm" style="float: right; margin-left: 2px;" (click)="deletar(item.id)">
+                Remover
+              </button>
+
+              
+              <div class="collapse" id="atualizar">
+                
+                <div class="form-group">
+                  <input type="text" [value]="item.nome" name="nome" [(ngModel)]="item.nome" >
+                  <button type="button" id="salvar" class="btn btn-primary btn-sm" data-toggle="collapse" href="#atualizar" (click)="atualizar(item);">Salvar</button>
+                </div>
+                
+             
+              </div>
+
+            </td>
+
+          </tr>
+
+
+        </tbody>
+      </table>
+
+    </div>
+
+
+
+  </div>
+
+
+
+</div>
